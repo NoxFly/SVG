@@ -11,7 +11,7 @@ I'll add it on npm and unpkg soon.
 
 other cool library: [Drag & Drop library](http://github.com/NoxFly/Drag-and-Drop)
 
-### Usage
+## Usage
 
 ```js
 var svg = new SVG('name', width, height, backgroundColor);
