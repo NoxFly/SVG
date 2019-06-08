@@ -14,8 +14,7 @@ other cool library: [Drag & Drop library](http://github.com/NoxFly/Drag-and-Drop
 ### Usage
 
 ```js
-var svg = new SVG('name', width, height, backgroundColor); // elem can be .class, #id or tag name
-// all these elements are now draggable !
+var svg = new SVG('name', width, height, backgroundColor);
 ```
 
 ## Methods
