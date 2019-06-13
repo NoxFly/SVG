@@ -128,7 +128,7 @@ class SVG {
             color: color,
             size: size,
             id: this.index++,
-            obj: document.createElement('line')
+            obj: document.createElementNS(this.xmlns, 'line')
         });
         return this.data[this.index-1];
     }
@@ -154,7 +154,7 @@ class SVG {
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
             id: this.index++,
-            obj: document.createElement('poyline')
+            obj: document.createElementNS(this.xmlns, 'polyline')
         });
         return this.data[this.index-1];
     }
@@ -174,7 +174,7 @@ class SVG {
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
             id: this.index++,
-            obj: document.createElement('circle')
+            obj: document.createElementNS(this.xmlns, 'circle')
         });
         return this.data[this.index-1];
     }
@@ -195,7 +195,7 @@ class SVG {
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
             id: this.index++,
-            obj: document.createElement('ellipse')
+            obj: document.createElementNS(this.xmlns, 'ellipse')
         });
         return this.data[this.index-1];
     }
@@ -232,7 +232,7 @@ class SVG {
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
             id: this.index,
-            obj: document.createElement('arc')
+            obj: document.createElementNS(this.xmlns, 'arc')
         });
         return this.data[this.index-1];
     }
@@ -250,7 +250,7 @@ class SVG {
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
             id: this.index++,
-            obj: document.createElement('path')
+            obj: document.createElementNS(this.xmlns, 'path')
         });
         return this.data[this.index-1];
     }
@@ -273,7 +273,7 @@ class SVG {
             width: width,
             height: height,
             id: this.index++,
-            obj: document.createElement('image')
+            obj: document.createElementNS(this.xmlns, 'image')
         });
         return this.data[this.index-1];
     }
@@ -288,7 +288,7 @@ class SVG {
             fontSize: size,
             text: t,
             id: this.index++,
-            obj: document.createElement('text')
+            obj: document.createElementNS(this.xmlns, 'text')
         });
         return this.data[this.index-1];
     }
