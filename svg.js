@@ -37,11 +37,11 @@ class SVG {
         let elSVG = document.createElementNS(this.xmlns, "svg");
         document.body.appendChild(elSVG);
 
-        setAttributes(elSVG, {
-            width: this.width+"px",
-            height: this.height+"px",
-            display: "inline-block",
-            class: this.name
+        elSVG.setAttribute("class", name);
+        Object.assign(elSVG.style, {
+            width: width+"px",
+            height: height+"px",
+            display: "inline-block"
         });
     }
 
