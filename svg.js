@@ -49,7 +49,7 @@ class SVG {
         this.reset();
         for(let j in this.data) {
             let i = this.data[j];
-            let newEl = document.createElementNS(this.xmlns, i.type);
+            let newEl = i.obj;
             document.getElementsByClassName(this.name)[0].appendChild(newEl);
 
             newEl.setAttribute("class", "s"+i.id);
@@ -108,6 +108,7 @@ class SVG {
                     });
                     break;
             }
+            this.data[j].obj = newEl;
         }
     }
 
@@ -126,7 +127,8 @@ class SVG {
             coord: [x1,y1,x2,y2],
             color: color,
             size: size,
-            id: this.index++
+            id: this.index++,
+            obj: document.createElement('line')
         });
         return this.data[this.index-1];
     }
@@ -151,7 +153,8 @@ class SVG {
             background: bg,
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
-            id: this.index++
+            id: this.index++,
+            obj: document.createElement('poyline')
         });
         return this.data[this.index-1];
     }
@@ -170,7 +173,8 @@ class SVG {
             background: bg,
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
-            id: this.index++
+            id: this.index++,
+            obj: document.createElement('circle')
         });
         return this.data[this.index-1];
     }
@@ -190,7 +194,8 @@ class SVG {
             background: bg,
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
-            id: this.index++
+            id: this.index++,
+            obj: document.createElement('ellipse')
         });
         return this.data[this.index-1];
     }
@@ -226,7 +231,8 @@ class SVG {
             background: bg,
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
-            id: this.index
+            id: this.index,
+            obj: document.createElement('arc')
         });
         return this.data[this.index-1];
     }
@@ -243,7 +249,8 @@ class SVG {
             background: bg,
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
-            id: this.index++
+            id: this.index++,
+            obj: document.createElement('path')
         });
         return this.data[this.index-1];
     }
@@ -265,7 +272,8 @@ class SVG {
             y: y,
             width: width,
             height: height,
-            id: this.index++
+            id: this.index++,
+            obj: document.createElement('image')
         });
         return this.data[this.index-1];
     }
@@ -279,7 +287,8 @@ class SVG {
             y: y,
             fontSize: size,
             text: t,
-            id: this.index++
+            id: this.index++,
+            obj: document.createElement('text')
         });
         return this.data[this.index-1];
     }
@@ -367,7 +376,6 @@ class SVG {
         } else {
             this.data[el.id].x = x;
             this.data[el.id].y = y;
-            //console.log(this.data[el.id].x)
         }
         this.draw();
     }
