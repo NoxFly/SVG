@@ -7,7 +7,7 @@
  */
 
 class SVG {
-    constructor(name, width, height) {
+    constructor(name, container, width, height) {
         if(!isNaN(this.name)) {
             console.warn("The name of the SVG must be a string");
             return false;
@@ -26,6 +26,12 @@ class SVG {
         } else {
             this.height = height;
         }
+
+        try {this.container = document.querySelector(container);}
+        catch(error) {
+            console.warn("container not found");
+            return false;
+        }
         
         this.data = [];
         this.name = name;
@@ -35,7 +41,7 @@ class SVG {
         this.defaultColor = "none";
         
         let elSVG = document.createElementNS(this.xmlns, "svg");
-        document.body.appendChild(elSVG);
+        this.container.appendChild(elSVG);
 
         elSVG.setAttribute("class", name);
         Object.assign(elSVG.style, {
