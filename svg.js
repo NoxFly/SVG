@@ -102,6 +102,7 @@ class SVG {
                     setAttributes(newEl, {
                         "x": i.x,
                         "y": i.y,
+                        "fill": i.fill,
                         "font-size": i.fontSize
                     });
                     newEl.appendChild(document.createTextNode(i.text));
@@ -118,6 +119,8 @@ class SVG {
             }
             this.data[j].obj = newEl;
         }
+
+        document.getElementsByClassName(this.name)[0].addEventListener('selectstart', function(e){ e.preventDefault(); });
     }
 
     reset() {
@@ -286,7 +289,7 @@ class SVG {
         return this.data[this.index-1];
     }
 
-    text(t, x, y, size) {
+    text(t, x, y, color, size) {
         t = t || ""; size = size || "1em";
         x = x || 0; y = y || 0;
         this.data.push({
@@ -294,6 +297,7 @@ class SVG {
             x: x,
             y: y,
             fontSize: size,
+            fill: color,
             text: t,
             id: this.index++,
             obj: document.createElementNS(this.xmlns, 'text')
