@@ -72,7 +72,9 @@ class SVG {
                         "x1": i.coord[0],
                         "y1": i.coord[1],
                         "x2": i.coord[2],
-                        "y2": i.coord[3]
+                        "y2": i.coord[3],
+                        "stroke": i.color,
+                        "stroke-width": i.size
                     });
                     break;
                 case "polyline":
