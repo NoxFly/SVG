@@ -46,8 +46,7 @@ class SVG {
         elSVG.setAttribute("class", name);
         Object.assign(elSVG.style, {
             width: width+"px",
-            height: height+"px",
-            display: "inline-block"
+            height: height+"px"
         });
     }
 
