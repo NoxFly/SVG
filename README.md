@@ -5,6 +5,8 @@
 <script src='https://cdn.jsdelivr.net/gh/NoxFly/SVG/svg.min.js'></script>
 ```
 
+[NPM SVG](https://www.npmjs.com/package/@noxfly/svg)
+
 **Works without Jquery**
 
 other cool library: [Drag & Drop library](http://github.com/NoxFly/Drag-and-Drop)
