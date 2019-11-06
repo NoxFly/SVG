@@ -5,6 +5,8 @@
 <script src='https://cdn.jsdelivr.net/gh/NoxFly/SVG/svg.min.js'></script>
 ```
 
+### NPM
+
 [NPM SVG](https://www.npmjs.com/package/@noxfly/svg)
 
 **Works without Jquery**
