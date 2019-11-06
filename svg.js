@@ -7,24 +7,10 @@
  */
 
 class SVG {
-    constructor(name, container, width, height) {
+    constructor(name, container, width=document.documentElement.clientWidth, height=document.documentElement.clientHeight) {
         if(!isNaN(this.name)) {
             console.warn("The name of the SVG must be a string");
             return false;
-        }
-
-        if(!width) {
-            this.width = document.documentElement.clientWidth;
-            this.height = document.documentElement.clientHeight;
-        } else {
-            this.width = width;
-            this.height = height;
-        }
-        
-        if(!height) {
-            this.height = document.documentElement.clientHeight;
-        } else {
-            this.height = height;
         }
 
         try {this.container = document.querySelector(container);}
@@ -32,12 +18,16 @@ class SVG {
             console.warn("container not found");
             return false;
         }
+
+        this.width = width;
+        this.height = height;
         
-        this.data = [];
         this.name = name;
         this.type = "svg";
         this.index = 0;
         this.xmlns = "http://www.w3.org/2000/svg";
+        
+        this.data = [];
         this.defaultColor = "none";
         
         let elSVG = document.createElementNS(this.xmlns, "svg");
@@ -46,7 +36,8 @@ class SVG {
         elSVG.setAttribute("class", name);
         Object.assign(elSVG.style, {
             width: width+"px",
-            height: height+"px"
+            height: height+"px",
+            cursor: 'default'
         });
     }
 
@@ -58,11 +49,10 @@ class SVG {
             document.getElementsByClassName(this.name)[0].appendChild(newEl);
 
             newEl.setAttribute("class", "s"+i.id);
-            Object.assign(newEl.style, {
-                display: "inline-block",
-                stroke: i.strokeColor,
-                strokeWidth: i.strokeWidth,
-                fill: i.background
+            setAttributes(newEl, {
+                "stroke": i.strokeColor,
+                "stroke-width": i.strokeWidth,
+                "fill": i.background
             });
 
             switch(i.type) {
@@ -126,12 +116,7 @@ class SVG {
         if(this.name) document.getElementsByClassName(this.name)[0].innerHTML = "";
     }
 
-    line(x1, y1, x2, y2, color, size) {
-        x1 = x1 || 0;   y1 = y1 || 0;
-        x2 = x2 || 0;   y2 = y2 || 0;
-        color = color || this.defaultColor;
-        size = size || 1;
-        
+    line(x1, y1, x2, y2, color=this.defaultColor, size=1) {        
         this.data.push({
             type: "line",
             coord: [x1,y1,x2,y2],
@@ -143,12 +128,7 @@ class SVG {
         return this.data[this.index-1];
     }
 
-    polyline(coords, bg, strokeColor, strokeWidth) {
-        coords = coords || [];
-        bg = bg || this.defaultColor;
-        strokeColor = strokeColor || this.defaultColor;
-        strokeWidth = strokeWidth || 1;
-
+    polyline(coords, bg=this.defaultColor, strokeColor=this.defaultColor, strokeWidth=1) {
         if(typeof coords == 'object') {
             if(coords[coords.length-1]===true) coords[coords.length-1] = coords[0];
             coords = this.createPolyline(coords);
@@ -169,12 +149,7 @@ class SVG {
         return this.data[this.index-1];
     }
 
-    circle(x, y, r, bg, strokeColor, strokeWidth) {
-        x = x || 0; y = y || 0; r = r || 0;
-        bg = bg || this.defaultColor;
-        strokeColor = strokeColor || this.defaultColor;
-        strokeWidth = strokeWidth || 1;
-
+    circle(x, y, r, bg=this.defaultColor, strokeColor=this.defaultColor, strokeWidth=1) {
         this.data.push({
             type: "circle",
             x: x,
@@ -189,12 +164,7 @@ class SVG {
         return this.data[this.index-1];
     }
 
-    ellipse(x, y, rx, ry, bg, strokeColor, strokeWidth) {
-        x = x || 0; rx = rx || 0;
-        y = y || 0; ry = ry || 0;
-        bg = bg || this.defaultColor;
-        strokeColor = strokeColor || this.defaultColor;
-        strokeWidth = strokeWidth || 1;
+    ellipse(x, y, rx, ry, bg=this.defaultColor, strokeColor=this.defaultColor, strokeWidth=this.strokeWidth) {
         this.data.push({
             type: "ellipse",
             x: x,
@@ -210,14 +180,7 @@ class SVG {
         return this.data[this.index-1];
     }
 
-    arc(x, y, r, startAngle, endAngle, bg, strokeColor, strokeWidth) {
-        x = x || 0; y = y || 0;
-        startAngle = startAngle || 0;
-        endAngle = endAngle || 0;
-        bg = bg || this.defaultColor;
-        strokeColor = strokeColor || this.defaultColor;
-        strokeWidth = strokeWidth || 1;
-
+    arc(x, y, r, startAngle, endAngle, bg=this.defaultColor, strokeColor=this.defaultColor, strokeWidth=1) {
         let start = {
             x: x + (r * Math.cos((endAngle-90) * Math.PI / 180.0)),
             y: y + (r * Math.cos((endAngle-90) * Math.PI / 180.0))
@@ -242,17 +205,12 @@ class SVG {
             strokeColor: strokeColor,
             strokeWidth: strokeWidth,
             id: this.index,
-            obj: document.createElementNS(this.xmlns, 'arc')
+            obj: document.createElementNS(this.xmlns, 'path')
         });
         return this.data[this.index-1];
     }
 
-    path(d, bg, strokeColor, strokeWidth) {
-        d = d || "";
-        bg = bg || this.defaultColor;
-        strokeColor = strokeColor || this.defaultColor;
-        strokeWidth = strokeWidth || 1;
-
+    path(d, bg=this.defaultColor, strokeColor=this.defaultColor, strokeWidth=this.strokeWidth) {
         this.data.push({
             type: "path",
             d: d,
@@ -266,10 +224,6 @@ class SVG {
     }
 
     image(url, width, height, x, y) {
-        url = url || "";
-        width = width || 0; height = height || 0;
-        x = x || 0; y = y || 0;
-
         if(/^(https?)/.test(url)) {
             console.alert("We don't accept online URL request");
             return false;
@@ -288,9 +242,7 @@ class SVG {
         return this.data[this.index-1];
     }
 
-    text(t, x, y, color, size) {
-        t = t || ""; size = size || "1em";
-        x = x || 0; y = y || 0;
+    text(t, x, y, color="#000", size="1em") {
         this.data.push({
             type: "text",
             x: x,
@@ -422,7 +374,7 @@ class SVG {
         return points;
     }
 
-    rect(x, y, width, height, background, strokeColor, strokeWidth) {
+    rect(x, y, width, height, background=this.defaultColor, strokeColor=this.defaultColor, strokeWidth=this.strokeWidth) {
         if(isNaN(x)) x = 0;
         if(isNaN(y)) y = 0;
         if(isNaN(width)) width = 0;

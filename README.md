@@ -5,8 +5,6 @@
 <script src='https://cdn.jsdelivr.net/gh/NoxFly/SVG/svg.min.js'></script>
 ```
 
-I'll add it on npm and unpkg soon.
-
 **Works without Jquery**
 
 other cool library: [Drag & Drop library](http://github.com/NoxFly/Drag-and-Drop)
@@ -16,7 +14,7 @@ other cool library: [Scroll library](http://github.com/NoxFly/scroll)
 ## Usage
 
 ```js
-var svg = new SVG('name', width, height, backgroundColor);
+var svg = new SVG('name', 'container', width, height, backgroundColor);
 ```
 
 ## Methods
